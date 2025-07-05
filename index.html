@@ -162,6 +162,7 @@
             overflow: hidden;
             font-weight: 500;
             transition: all 0.3s ease;
+            font-family: monospace;
         }
         
         .password-display:hover {
@@ -596,7 +597,8 @@
         <main>
             <div class="generator-box">
                 <div class="password-display" id="passwordDisplay">
-                    <i class="fas fa-lock"></i> روی دکمه تولید کلیک کنید
+                    <i class="fas fa-lock"></i>
+                    <span id="passwordOutput">روی دکمه تولید کلیک کنید</span>
                 </div>
                 
                 <div class="strength-meter">
@@ -698,6 +700,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             // عناصر DOM
             const passwordDisplay = document.getElementById('passwordDisplay');
+            const passwordOutput = document.getElementById('passwordOutput');
             const generateBtn = document.getElementById('generateBtn');
             const copyBtn = document.getElementById('copyBtn');
             const lengthSlider = document.getElementById('passwordLength');
@@ -731,29 +734,22 @@
                 
                 // اگر هیچ گزینه‌ای انتخاب نشده باشد
                 if (charSet === '') {
-                    passwordDisplay.innerHTML = '<i class="fas fa-exclamation-triangle"></i> لطفاً حداقل یک گزینه را انتخاب کنید';
+                    passwordOutput.textContent = 'لطفاً حداقل یک گزینه را انتخاب کنید';
+                    passwordDisplay.querySelector('i').className = 'fas fa-exclamation-triangle';
                     return;
+                } else {
+                    passwordDisplay.querySelector('i').className = 'fas fa-lock';
                 }
                 
-                // تولید رمز با استفاده از Crypto API اگر در دسترس باشد
+                // تولید رمز
                 let password = '';
-                if (window.crypto && window.crypto.getRandomValues) {
-                    const values = new Uint32Array(length);
-                    window.crypto.getRandomValues(values);
-                    
-                    for (let i = 0; i < length; i++) {
-                        password += charSet[values[i] % charSet.length];
-                    }
-                } else {
-                    // Fallback به Math.random
-                    for (let i = 0; i < length; i++) {
-                        const randomIndex = Math.floor(Math.random() * charSet.length);
-                        password += charSet[randomIndex];
-                    }
+                for (let i = 0; i < length; i++) {
+                    const randomIndex = Math.floor(Math.random() * charSet.length);
+                    password += charSet[randomIndex];
                 }
                 
                 // نمایش رمز
-                passwordDisplay.innerHTML = `<i class="fas fa-lock"></i> ${password}`;
+                passwordOutput.textContent = password;
                 
                 // محاسبه قدرت رمز
                 calculatePasswordStrength(password);
@@ -846,9 +842,9 @@
             generateBtn.addEventListener('click', generatePassword);
             
             copyBtn.addEventListener('click', () => {
-                const passwordText = passwordDisplay.textContent.replace(' روی دکمه تولید کلیک کنید', '');
-                if (passwordText && !passwordText.includes('لطفاً حداقل')) {
-                    copyToClipboard(passwordText.trim());
+                if (passwordOutput.textContent !== 'روی دکمه تولید کلیک کنید' && 
+                    !passwordOutput.textContent.includes('لطفاً حداقل')) {
+                    copyToClipboard(passwordOutput.textContent);
                 }
             });
             
