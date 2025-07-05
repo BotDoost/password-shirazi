@@ -28,29 +28,84 @@
             --warning: #f59e0b;
             --danger: #ef4444;
             --gray: #94a3b8;
+            --glass: rgba(30, 41, 59, 0.7);
         }
         
         body {
             background: linear-gradient(135deg, var(--darker), var(--dark));
             color: var(--light);
             min-height: 100vh;
-            padding: 20px;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             line-height: 1.8;
         }
         
+        /* نوار اطلاعات بالای صفحه */
+        .top-contact-bar {
+            background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+            width: 100%;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        
+        .designer-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .designer-info .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.05rem;
+        }
+        
+        .contact-item i {
+            color: var(--light);
+            background: rgba(255, 255, 255, 0.2);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .contact-number {
+            font-weight: 700;
+            color: var(--light);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 5px 15px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-number:hover {
+            background: rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+        
         .container {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 20px;
+            padding-top: 40px;
         }
         
         header {
             text-align: center;
-            padding: 40px 0 30px;
-            margin-bottom: 20px;
+            padding: 20px 0 40px;
             position: relative;
         }
         
@@ -58,6 +113,7 @@
             font-size: 3rem;
             margin-bottom: 15px;
             color: var(--secondary);
+            text-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
         }
         
         h1 {
@@ -77,7 +133,7 @@
         }
         
         .generator-box {
-            background: rgba(30, 41, 59, 0.7);
+            background: var(--glass);
             backdrop-filter: blur(12px);
             border-radius: 24px;
             padding: 40px;
@@ -233,7 +289,7 @@
         }
         
         .info-section {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
+            background: linear-gradient(135deg, var(--glass), rgba(15, 23, 42, 0.8));
             border-radius: 24px;
             padding: 40px;
             margin-top: 40px;
@@ -297,7 +353,7 @@
         }
         
         .designer-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
+            background: linear-gradient(135deg, var(--glass), rgba(15, 23, 42, 0.8));
             border-radius: 20px;
             padding: 30px;
             max-width: 500px;
@@ -311,7 +367,7 @@
             margin-bottom: 20px;
         }
         
-        .designer-info {
+        .designer-info-footer {
             font-size: 1.25rem;
             margin-bottom: 15px;
             display: flex;
@@ -320,7 +376,7 @@
             gap: 10px;
         }
         
-        .contact {
+        .contact-footer {
             font-size: 1.4rem;
             font-weight: 700;
             background: linear-gradient(45deg, var(--secondary), var(--primary));
@@ -336,7 +392,7 @@
             transition: all 0.3s ease;
         }
         
-        .contact:hover {
+        .contact-footer:hover {
             background: linear-gradient(45deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
         }
@@ -405,6 +461,19 @@
         }
         
         /* Responsive */
+        @media (max-width: 992px) {
+            .top-contact-bar {
+                flex-direction: column;
+                gap: 12px;
+                padding: 15px;
+            }
+            
+            .designer-info {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+        
         @media (max-width: 768px) {
             .generator-box {
                 padding: 30px 20px;
@@ -440,7 +509,7 @@
                 padding: 25px 20px;
             }
             
-            .contact {
+            .contact-footer {
                 font-size: 1.2rem;
                 flex-direction: column;
                 gap: 5px;
@@ -449,7 +518,7 @@
         
         @media (max-width: 480px) {
             header {
-                padding: 30px 0 20px;
+                padding: 20px 0 30px;
             }
             
             h1 {
@@ -472,6 +541,15 @@
             .info-section {
                 font-size: 1rem;
             }
+            
+            .designer-info .contact-item {
+                font-size: 0.9rem;
+            }
+            
+            .contact-number {
+                font-size: 0.9rem;
+                padding: 4px 10px;
+            }
         }
         
         /* Animation */
@@ -487,6 +565,25 @@
     </style>
 </head>
 <body>
+    <!-- نوار اطلاعات تماس در بالای صفحه -->
+    <div class="top-contact-bar">
+        <div class="designer-info">
+            <div class="contact-item">
+                <i class="fas fa-user-tie"></i>
+                <span>طراح و برنامه‌نویس: شیرازی</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-code"></i>
+                <span>تخصص: برنامه‌نویسی وب</span>
+            </div>
+        </div>
+        
+        <div class="contact-number">
+            <i class="fas fa-mobile-alt"></i>
+            <span>تماس: 09031701895</span>
+        </div>
+    </div>
+
     <div class="container">
         <header>
             <div class="logo">
@@ -581,13 +678,13 @@
         <footer class="footer">
             <div class="designer-card">
                 <h3><i class="fas fa-user-tie"></i> اطلاعات طراح و برنامه‌نویس</h3>
-                <div class="designer-info">
+                <div class="designer-info-footer">
                     <i class="fas fa-signature"></i> نام: شیرازی
                 </div>
-                <div class="designer-info">
+                <div class="designer-info-footer">
                     <i class="fas fa-code"></i> تخصص: برنامه‌نویس وب
                 </div>
-                <div class="contact">
+                <div class="contact-footer">
                     <i class="fas fa-mobile-alt"></i> تماس: 09031701895
                 </div>
             </div>
@@ -727,7 +824,7 @@
                 feedback.textContent = message;
                 feedback.style.position = 'fixed';
                 feedback.style.bottom = '30px';
-                feedback.style.left: '50%';
+                feedback.style.left = '50%';
                 feedback.style.transform = 'translateX(-50%)';
                 feedback.style.backgroundColor = '#10b981';
                 feedback.style.color = '#fff';
